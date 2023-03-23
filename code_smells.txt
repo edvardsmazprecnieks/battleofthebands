@@ -1,0 +1,7 @@
+Bloaters:
+    * Long Method
+    * Primitive Obsession
+
+Object-Orientation Abusers:
+    * Switch Statements
+
