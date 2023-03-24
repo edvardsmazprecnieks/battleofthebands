@@ -99,3 +99,15 @@ class MarkdownTest(unittest.TestCase):
             parse("# Start a list\n* Item 1\n* Item 2\nEnd a list"),
             "<h1>Start a list</h1><ul><li>Item 1</li><li>Item 2</li></ul><p>End a list</p>",
         )
+
+    def test_mixed_normal_italics_and_bold_text_in_header(self):
+        self.assertEqual(
+            parse("# This will _be_ __mixed__"),
+            "<h1>This will <em>be</em> <strong>mixed</strong></h1>",
+        )
+    
+    def test_unordered_lists_close_properly_with_preceding_and_following_lines(self):
+        self.assertEqual(
+            parse("# Start a list\n* _Item_ 1\n* Item 2\nEnd a list"),
+            "<h1>Start a list</h1><ul><li><em>Item</em> 1</li><li>Item 2</li></ul><p>End a list</p>",
+        )
