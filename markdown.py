@@ -19,19 +19,13 @@ def parse(markdown):
     in_list = False
     in_list_append = False
     for line in lines:
-        if line.startswith("###### "):
-            line = "<h6>" + line[7:] + "</h6>"
-        elif line.startswith("##### "):
-            line = "<h5>" + line[6:] + "</h5>"
-        elif line.startswith("#### "):
-            line = "<h4>" + line[5:] + "</h4>"
-        elif line.startswith("### "):
-            line = "<h3>" + line[4:] + "</h3>"
-        elif line.startswith("## "):
-            line = "<h2>" + line[3:] + "</h2>"
-        elif line.startswith("# "):
-            line = "<h1>" + line[2:] + "</h1>"
-
+        if line.startswith("#"):
+            header_level = len(line.split()[0])
+            if header_level > 6:
+                line = f"<p>{line}</p>"
+            else:
+                header_text = line[header_level + 1:]
+                line = f"<h{header_level}>{header_text}</h{header_level}>"
         elif line.startswith("* "):
             if not in_list:
                 in_list = True
