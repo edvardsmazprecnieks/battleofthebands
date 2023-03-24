@@ -10,6 +10,15 @@ def parse(markdown):
 
     The `parse` function converts markdown-formatted text to HTML. It recognizes the
     following markdown syntax:
+    # h1 header
+    ## h2 header
+    ### h3 header
+    #### h4 header
+    ##### h5 header
+    ###### h6 header
+    * unordered list item
+    __text__ bold text
+    _text_ text in italic
 
     All other text is treated as paragraphs.
     """
