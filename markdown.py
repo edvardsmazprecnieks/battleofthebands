@@ -19,12 +19,7 @@ def parse(markdown):
     in_list = False
     for line in lines:
         if line.startswith("#"):
-            header_level = len(line.split()[0])
-            if header_level > 6:
-                line = f"<p>{line}</p>"
-            else:
-                header_text = line[header_level + 1:]
-                line = f"<h{header_level}>{header_text}</h{header_level}>"
+            line = parse_header(line)
         elif line.startswith("* "):
             stripped_line = line[2:]
             if not in_list:
@@ -53,3 +48,13 @@ def parse(markdown):
     if in_list:
         html += "</ul>"
     return html
+
+def parse_header(line):
+    header_level = len(line.split()[0])
+    if header_level > 6:
+        line = f"<p>{line}</p>"
+    else:
+        header_text = line[header_level + 1:]
+        line = f"<h{header_level}>{header_text}</h{header_level}>"
+
+    return line
