@@ -29,33 +29,11 @@ def parse(markdown):
         elif line.startswith("* "):
             if not in_list:
                 in_list = True
-                is_bold = False
-                is_italic = False
-                curr = line[2:]
-                if "__" in curr:
-                    parts = curr.split("__")
-                    curr = parts[0] + "<strong>" + parts[1] + "</strong>" + parts[2]
-                    is_bold = True
-                if "_" in curr:
-                    parts = curr.split("_")
-                    curr = parts[0] + "<em>" + parts[1] + "</em>" + parts[2]
-                    is_italic = True
-                line = "<ul><li>" + curr + "</li>"
+                stripped_line = line[2:]
+                line = "<ul><li>" + stripped_line + "</li>"
             else:
-                is_bold = False
-                is_italic = False
-                curr = line[2:]
-                if "__" in curr:
-                    is_bold = True
-                if "_" in curr:
-                    is_italic = True
-                if is_bold:
-                    parts = curr.split("__")
-                    curr = parts[0] + "<strong>" + parts[1] + "</strong>" + parts[2]
-                if is_italic:
-                    parts = curr.split("_")
-                    curr = parts[0] + "<em>" + parts[1] + "</em>" + parts[2]
-                line = "<li>" + curr + "</li>"
+                stripped_line = line[2:]
+                line = "<li>" + stripped_line + "</li>"
         else:
             if in_list:
                 in_list_append = True
