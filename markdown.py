@@ -27,12 +27,11 @@ def parse(markdown):
                 header_text = line[header_level + 1:]
                 line = f"<h{header_level}>{header_text}</h{header_level}>"
         elif line.startswith("* "):
+            stripped_line = line[2:]
             if not in_list:
                 in_list = True
-                stripped_line = line[2:]
                 line = "<ul><li>" + stripped_line + "</li>"
             else:
-                stripped_line = line[2:]
                 line = "<li>" + stripped_line + "</li>"
         else:
             if in_list:
