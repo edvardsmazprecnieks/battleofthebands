@@ -17,7 +17,7 @@ def parse(markdown):
     lines = markdown.split("\n")
     html = ""
     in_list = False
-    in_list_append = False
+    in_list_appended_to_list = False
     for line in lines:
         if line.startswith("#"):
             header_level = len(line.split()[0])
@@ -35,7 +35,7 @@ def parse(markdown):
                 line = "<li>" + stripped_line + "</li>"
         else:
             if in_list:
-                in_list_append = True
+                in_list_appended_to_list = True
                 in_list = False
         if not (
             line.startswith("<h")
@@ -50,9 +50,9 @@ def parse(markdown):
         if "_" in line:
             parts = line.split("_")
             line = parts[0] + "<em>" + parts[1] + "</em>" + parts[2]
-        if in_list_append:
+        if in_list_appended_to_list:
             line = "</ul>" + line
-            in_list_append = False
+            in_list_appended_to_list = False
         html += line
     if in_list:
         html += "</ul>"
