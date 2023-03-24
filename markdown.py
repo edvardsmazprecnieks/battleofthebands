@@ -30,21 +30,18 @@ def parse(markdown):
         if line.startswith("#"):
             line = parse_header(line)
         elif line.startswith("* "):
-            stripped_line = line[2:]
+            line = line[2:]
             if not in_list:
                 in_list = True
-                line = "<ul><li>" + stripped_line + "</li>"
-            else:
-                line = "<li>" + stripped_line + "</li>"
+                html += "<ul>"
+            line = "<li>" + line + "</li>"
         else:
             if in_list:
                 html += "</ul>"
                 in_list = False
         if not (
-            line.startswith("<h")
-            or line.startswith("<ul")
-            or line.startswith("<p")
-            or line.startswith("<li")
+            line.startswith("<h") or line.startswith("<ul")
+            or line.startswith("<p") or line.startswith("<li")
         ):
             line = "<p>" + line + "</p>"
         if "__" in line:
